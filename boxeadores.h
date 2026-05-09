@@ -5,9 +5,6 @@
 extern "C" {
 #endif
 
-// Variable global para asignar IDs únicos
-extern int id_max;
-
 // Arreglo de categorias 
 extern const char* categorias[3];
 
@@ -19,7 +16,6 @@ typedef struct {
 } Record;
 
 typedef struct {
-    int id;
     char nombre[50];
     float peso;
     char categoria[20];
@@ -29,14 +25,14 @@ typedef struct {
 
 // Agregar un nuevo boxeador a la base de datos
 void agregar_boxeador();
-// Buscar un boxeador por ID
-Boxeador* buscar_boxeador(int id);
+// Buscar un boxeador por nombre
+void buscar_boxeador();
 // Modificar los datos de un boxeador
-void modificar_boxeador(int id, Boxeador b);
+void modificar_boxeador(const char* nombre, Boxeador b);
 // Eliminar un boxeador (marcar como inactivo)
-void eliminar_boxeador(int id);
+void eliminar_boxeador(const char* nombre);
 // Registrar el resultado de una pelea
-void registrar_resultado(int id_ganador, int id_perdedor);
+void registrar_resultado(const char* nombre_ganador, const char* nombre_perdedor);
 // Listar todos los boxeadores activos
 void listar_boxeadores_activos();
 

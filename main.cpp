@@ -10,7 +10,7 @@ void menuGestion() {
     do {
         cout << "\n========== GESTION DE BOXEADORES ==========" << endl;
         cout << "1. Agregar boxeador"             << endl;
-        cout << "2. Buscar boxeador por ID"       << endl;
+        cout << "2. Buscar boxeador por nombre"   << endl;
         cout << "3. Modificar boxeador"           << endl;
         cout << "4. Eliminar boxeador"            << endl;
         cout << "5. Registrar resultado de pelea" << endl;
@@ -18,16 +18,21 @@ void menuGestion() {
         cout << "7. Volver al menu principal"     << endl;
         cout << "Opcion: ";
         cin  >> op;
+        cin.ignore(); // Limpiar el buffer
 
         switch (op) {
             case 1: 
                 agregar_boxeador();
                 break;
-            case 2: break;
+            case 2: 
+                buscar_boxeador();
+                break;
             case 3: break;
             case 4: break;
             case 5: break;
-            case 6: break;
+            case 6:
+                listar_boxeadores_activos();
+                break;
             case 7: cout << "Volviendo..." << endl; break;
             default: cout << "Opcion invalida." << endl;
         }
@@ -46,6 +51,7 @@ void menuEmparejamiento() {
         cout << "5. Volver al menu principal"            << endl;
         cout << "Opcion: ";
         cin  >> op;
+        cin.ignore(); // Limpiar el buffer
 
         switch (op) {
             case 1: break;
@@ -69,6 +75,7 @@ void menuReportes() {
         cout << "4. Volver al menu principal"           << endl;
         cout << "Opcion: ";
         cin  >> op;
+        cin.ignore(); // Limpiar el buffer
 
         switch (op) {
             case 1: break;
@@ -90,6 +97,7 @@ void menuGraficas() {
         cout << "3. Volver al menu principal"            << endl;
         cout << "Opcion: ";
         cin  >> op;
+        cin.ignore(); // Limpiar el buffer
 
         switch (op) {
             case 1: break;
@@ -115,6 +123,7 @@ int main() {
         cout << "5. Salir"                   << endl;
         cout << "Opcion: ";
         cin  >> op;
+        cin.ignore(); // Limpiar el buffer
 
         switch (op) {
             case 1: menuGestion();        break;
