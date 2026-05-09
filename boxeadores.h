@@ -25,7 +25,9 @@ typedef struct {
 
 // Agregar un nuevo boxeador a la base de datos
 void agregar_boxeador();
-// Buscar un boxeador por nombre
+// Buscar un boxeador por nombre y devolver la posicion del registro
+long boxeador_existe(const char* nombre, Boxeador* encontrado);
+// Buscar un boxeador por nombre e imprimirlo
 void buscar_boxeador();
 // Modificar los datos de un boxeador
 void modificar_boxeador();

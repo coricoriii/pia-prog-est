@@ -9,19 +9,23 @@ const char* categorias[3] = {
     "Peso Pesado"
 };
 
-int boxeador_existe(const char* nombre) {
+long boxeador_existe(const char* nombre, Boxeador* encontrado) {
     FILE *f = fopen("boxeadores.dat", "rb");
     if (f != NULL) {
         Boxeador b;
         while (fread(&b, sizeof(Boxeador), 1, f) == 1) {
             if (strcmp(b.nombre, nombre) == 0 && b.activo) {
+                long posicion = ftell(f) - (long)sizeof(Boxeador);
+                if (encontrado != NULL) {
+                    *encontrado = b;
+                }
                 fclose(f);
-                return 1; // Boxeador existe
+                return posicion;
             }
         }
         fclose(f);
     }
-    return 0; // Boxeador no existe
+    return -1; // Boxeador no existe
 }
 
 void modificar_boxeador() {
@@ -30,43 +34,40 @@ void modificar_boxeador() {
     printf("Ingrese el nombre del boxeador a modificar: ");
     fgets(nombre, sizeof(nombre), stdin);
     nombre[strcspn(nombre, "\n")] = 0;  // Remover
-    if (boxeador_existe(nombre)) {
-        // Abrir el archivo para lectura y escritura
+    Boxeador b;
+    long posicion = boxeador_existe(nombre, &b);
+    if (posicion >= 0) {
         FILE *f = fopen("boxeadores.dat", "r+b");
         if (f != NULL) {
-            Boxeador b;
-            while (fread(&b, sizeof(Boxeador), 1, f) == 1) {
-                if (strcmp(b.nombre, nombre) == 0 && b.activo) {
-                    printf("Ingrese nuevo peso: ");
-                    scanf("%f", &b.peso);
-                    getchar(); // Consumir salto de línea
-                    printf("Ingrese nueva cantidad de victorias: ");
-                    scanf("%d", &b.record.victorias);
-                    printf("Ingrese nueva cantidad de derrotas: ");
-                    scanf("%d", &b.record.derrotas);
-                    getchar(); // Consumir salto de línea
-                    
-                    b.record.totalPeleas = b.record.victorias + b.record.derrotas;
-                    if (b.record.totalPeleas > 0) {
-                        b.record.indiceVictorias = (float)b.record.victorias / b.record.totalPeleas;
-                    } else {
-                        b.record.indiceVictorias = 0.0f;
-                    }
-                    
-                    if (b.peso < 60.0f) {
-                        strcpy(b.categoria, categorias[0]);
-                    } else if (b.peso < 80.0f) {
-                        strcpy(b.categoria, categorias[1]);
-                    } else {
-                        strcpy(b.categoria, categorias[2]);
-                    }
-                    
-                    // Mover el puntero del archivo hacia atrás para sobrescribir el registro
-                    fseek(f, -sizeof(Boxeador), SEEK_CUR);
-                    fwrite(&b, sizeof(Boxeador), 1, f);
-                    printf("Boxeador '%s' modificado correctamente.\n\n", b.nombre);
-                    break;
-                }
+            printf("Ingrese nuevo peso: ");
+            scanf("%f", &b.peso);
+            getchar(); // Consumir salto de línea
+            printf("Ingrese nueva cantidad de victorias: ");
+            scanf("%d", &b.record.victorias);
+            printf("Ingrese nueva cantidad de derrotas: ");
+            scanf("%d", &b.record.derrotas);
+            getchar(); // Consumir salto de línea
+            
+            b.record.totalPeleas = b.record.victorias + b.record.derrotas;
+            if (b.record.totalPeleas > 0) {
+                b.record.indiceVictorias = (float)b.record.victorias / b.record.totalPeleas;
+            } else {
+                b.record.indiceVictorias = 0.0f;
+            }
+            
+            if (b.peso < 60.0f) {
+                strcpy(b.categoria, categorias[0]);
+            } else if (b.peso < 80.0f) {
+                strcpy(b.categoria, categorias[1]);
+            } else {
+                strcpy(b.categoria, categorias[2]);
+            }
+            
+            if (fseek(f, posicion, SEEK_SET) == 0) {
+                fwrite(&b, sizeof(Boxeador), 1, f);
+                printf("Boxeador '%s' modificado correctamente.\n\n", b.nombre);
+            } else {
+                printf("Error al posicionar el archivo.\n");
             }
             fclose(f);
         } else {
@@ -124,24 +125,14 @@ void buscar_boxeador() {
     fgets(nombre, sizeof(nombre), stdin);
     nombre[strcspn(nombre, "\n")] = 0;  // Remover salto de línea
     
-    if (boxeador_existe(nombre)) {
-        FILE *f = fopen("boxeadores.dat", "rb");
-        if (f != NULL) {
-            Boxeador b;
-            while (fread(&b, sizeof(Boxeador), 1, f) == 1) {
-                if (strcmp(b.nombre, nombre) == 0 && b.activo) {
-                    printf("\nNombre: %s\n", b.nombre);
-                    printf("Peso: %.2f kg\n", b.peso);
-                    printf("Categoria: %s\n", b.categoria);
-                    printf("Record: %d-%d (%.2f%% victorias)\n", 
-                        b.record.victorias, b.record.derrotas, b.record.indiceVictorias * 100);
-                    break;
-                }
-            }
-            fclose(f);
-        } else {
-            printf("Error al abrir el archivo.\n");
-        }
+    Boxeador b;
+    long posicion = boxeador_existe(nombre, &b);
+    if (posicion >= 0) {
+        printf("\nNombre: %s\n", b.nombre);
+        printf("Peso: %.2f kg\n", b.peso);
+        printf("Categoria: %s\n", b.categoria);
+        printf("Record: %d-%d (%.2f%% victorias)\n", 
+            b.record.victorias, b.record.derrotas, b.record.indiceVictorias * 100);
     } else {
         printf("Boxeador '%s' no encontrado.\n", nombre);
     }
