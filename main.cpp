@@ -27,7 +27,9 @@ void menuGestion() {
             case 2: 
                 buscar_boxeador();
                 break;
-            case 3: break;
+            case 3: 
+                modificar_boxeador();
+                break;
             case 4: break;
             case 5: break;
             case 6:
