@@ -30,8 +30,11 @@ void menuGestion() {
             case 3: 
                 modificar_boxeador();
                 break;
-            case 4: break;
-            case 5: break;
+            case 4: 
+                eliminar_boxeador();
+                break;
+            case 5: 
+                break;
             case 6:
                 listar_boxeadores_activos();
                 break;

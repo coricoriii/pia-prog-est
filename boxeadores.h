@@ -32,9 +32,9 @@ void buscar_boxeador();
 // Modificar los datos de un boxeador
 void modificar_boxeador();
 // Eliminar un boxeador (marcar como inactivo)
-void eliminar_boxeador(const char* nombre);
+void eliminar_boxeador();
 // Registrar el resultado de una pelea
-void registrar_resultado(const char* nombre_ganador, const char* nombre_perdedor);
+void registrar_resultado();
 // Listar todos los boxeadores activos
 void listar_boxeadores_activos();
 

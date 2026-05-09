@@ -166,3 +166,29 @@ void listar_boxeadores_activos() {
     }
 }
 
+void eliminar_boxeador() {
+    printf("Ingrese el nombre del boxeador a eliminar: ");
+    char nombre[50];
+    fgets(nombre, sizeof(nombre), stdin);
+    nombre[strcspn(nombre, "\n")] = 0;  // Remover salto de línea
+    Boxeador b;
+    long posicion = boxeador_existe(nombre, &b);
+    if (posicion >= 0) {
+        FILE *f = fopen("boxeadores.dat", "r+b");
+        if (f != NULL) {
+            b.activo = 0; // Marcar como inactivo
+            if (fseek(f, posicion, SEEK_SET) == 0) {
+                fwrite(&b, sizeof(Boxeador), 1, f);
+                printf("Boxeador '%s' eliminado correctamente.\n\n", b.nombre);
+            } else {
+                printf("Error al posicionar el archivo.\n");
+            }
+            fclose(f);
+        } else {
+            printf("Error al abrir el archivo.\n");
+        }
+    } else {
+        printf("Boxeador '%s' no encontrado.\n", nombre);
+    }
+}
+
