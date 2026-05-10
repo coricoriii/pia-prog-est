@@ -192,3 +192,61 @@ void eliminar_boxeador() {
     }
 }
 
+void registrar_resultado() {
+    printf("Ingrese el nombre del boxeador ganador: ");
+    char ganador[50];
+    fgets(ganador, sizeof(ganador), stdin);
+    ganador[strcspn(ganador, "\n")] = 0;  // Remover salto de línea
+    printf("Ingrese el nombre del boxeador perdedor: ");
+    char perdedor[50];
+    fgets(perdedor, sizeof(perdedor), stdin);
+    perdedor[strcspn(perdedor, "\n")] = 0;  // Remover salto de línea
+    printf("Ingrese el resultado (KO,TKO): ");
+    char resultado[20];
+    fgets(resultado, sizeof(resultado), stdin);
+    resultado[strcspn(resultado, "\n")] = 0;  // Remover salto de línea
+    Boxeador b_ganador, b_perdedor;
+    long pos_ganador = boxeador_existe(ganador, &b_ganador);
+    long pos_perdedor = boxeador_existe(perdedor, &b_perdedor);
+    if (pos_ganador >= 0 && pos_perdedor >= 0) {
+        FILE *f = fopen("boxeadores.dat", "r+b");
+        if (f != NULL) {
+            // Actualizar ganador
+            b_ganador.record.victorias++;
+            b_ganador.record.totalPeleas++;
+            b_ganador.record.indiceVictorias = (float)b_ganador.record.victorias / b_ganador.record.totalPeleas;
+            if (fseek(f, pos_ganador, SEEK_SET) == 0) {
+                fwrite(&b_ganador, sizeof(Boxeador), 1, f);
+            }
+            // Actualizar perdedor
+            b_perdedor.record.derrotas++;
+            b_perdedor.record.totalPeleas++;
+            b_perdedor.record.indiceVictorias = (float)b_perdedor.record.victorias / b_perdedor.record.totalPeleas;
+            if (fseek(f, pos_perdedor, SEEK_SET) == 0) {
+                fwrite(&b_perdedor, sizeof(Boxeador), 1, f);
+            }
+            fclose(f);
+            printf("Resultado registrado: '%s' ganó a '%s'.\n\n", ganador, perdedor);
+        } else {
+            printf("Error al abrir el archivo.\n");
+        }
+    } else {
+        printf("Boxeador ganador o perdedor no encontrado.\n");
+    }
+    // resultados.dat guardar resultados
+    Resultado r;
+    r.boxeador1 = pos_ganador;
+    r.boxeador2 = pos_perdedor;
+    strncpy(r.resultado, resultado, sizeof(r.resultado) - 1);
+    r.resultado[sizeof(r.resultado) - 1] = '\0';  // Asegurar terminación nula
+    FILE *f_resultados = fopen("resultados.dat", "a");
+    if (f_resultados != NULL) {
+        fwrite(&r, sizeof(Resultado), 1, f_resultados);
+        fclose(f_resultados);
+    } else {
+        printf("Error al abrir el archivo de resultados.\n");
+    }
+}
+
+
+

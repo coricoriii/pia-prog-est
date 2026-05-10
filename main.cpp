@@ -34,6 +34,7 @@ void menuGestion() {
                 eliminar_boxeador();
                 break;
             case 5: 
+                registrar_resultado();
                 break;
             case 6:
                 listar_boxeadores_activos();

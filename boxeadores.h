@@ -23,6 +23,12 @@ typedef struct {
     int activo; // 1 para activo, 0 para inactivo
 } Boxeador;
 
+typedef struct {
+    int boxeador1;
+    int boxeador2;
+    char resultado[20]; 
+} Resultado;
+
 // Agregar un nuevo boxeador a la base de datos
 void agregar_boxeador();
 // Buscar un boxeador por nombre y devolver la posicion del registro
@@ -33,7 +39,7 @@ void buscar_boxeador();
 void modificar_boxeador();
 // Eliminar un boxeador (marcar como inactivo)
 void eliminar_boxeador();
-// Registrar el resultado de una pelea
+// Registrar resultado de pelea
 void registrar_resultado();
 // Listar todos los boxeadores activos
 void listar_boxeadores_activos();
