@@ -3,7 +3,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif 
+#endif
 
 void reporte_boxeadores();
 void reporte_emparejamientos();
