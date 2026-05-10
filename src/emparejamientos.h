@@ -6,16 +6,18 @@ extern "C" {
 #endif
 
 typedef struct {
-    char boxeador1[50];
-    char boxeador2[50];
+    int idEmparejamiento;
+    int idBoxeador1;
+    int idBoxeador2;
     float compatibilidad;
 } Emparejamiento;
 
 void mejor_rival();
 void mostrar_matriz();
 void ver_emparejamientos();
+void guardar_emparejamiento(int id1, int id2, float comp);
 
 #ifdef __cplusplus
 }
 #endif
-#endif 
+#endif

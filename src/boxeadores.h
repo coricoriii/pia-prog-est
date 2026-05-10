@@ -5,8 +5,9 @@
 extern "C" {
 #endif
 
-// Arreglo de categorias 
-extern const char* categorias[3];
+#define MAX_BOXEADORES 100
+
+extern const char* categorias[6];
 
 typedef struct {
     int victorias;
@@ -16,35 +17,33 @@ typedef struct {
 } Record;
 
 typedef struct {
+    int id;
     char nombre[50];
     float peso;
     char categoria[20];
     Record record;
-    int activo; // 1 para activo, 0 para inactivo
+    int activo;
 } Boxeador;
 
 typedef struct {
+    int id;
     char ganador[50];
     char perdedor[50];
     char resultado[20];
 } Resultado;
 
-// Agregar un nuevo boxeador a la base de datos
 void agregar_boxeador();
-// Buscar un boxeador por nombre y devolver la posicion del registro
-long boxeador_existe(const char* nombre, Boxeador* encontrado);
-// Buscar un boxeador por nombre e imprimirlo
+long boxeador_existe_id(int id, Boxeador *encontrado);
+long boxeador_existe(const char *nombre, Boxeador *encontrado);
 void buscar_boxeador();
-// Modificar los datos de un boxeador
 void modificar_boxeador();
-// Eliminar un boxeador (marcar como inactivo)
 void eliminar_boxeador();
-// Registrar resultado de pelea
 void registrar_resultado();
-// Listar todos los boxeadores activos
 void listar_boxeadores_activos();
+int siguiente_id();
+void asignar_categoria(Boxeador *b);
 
 #ifdef __cplusplus
 }
 #endif
-#endif 
+#endif
