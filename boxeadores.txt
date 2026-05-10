@@ -1,0 +1,4 @@
+Nombre	Peso	Categoria	Victorias	Derrotas	Indice de Victorias
+corina	50.00	Peso Ligero	3	4	42.86%
+emi	56.00	Peso Ligero	3	2	60.00%
+luis	60.00	Peso Mediano	4	5	44.44%

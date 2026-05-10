@@ -2,6 +2,7 @@
 #include <string>
 #include "boxeadores.h"
 #include "emparejamientos.h"
+#include "reportes.h"
 
 using namespace std;
 
@@ -92,9 +93,15 @@ void menuReportes() {
         cin.ignore(); // Limpiar el buffer
 
         switch (op) {
-            case 1: break;
-            case 2: break;
-            case 3: break;
+            case 1: 
+                reporte_boxeadores();
+                break;
+            case 2: 
+                reporte_emparejamientos();
+                break;
+            case 3: 
+                estadisticas_generales();
+                break;
             case 4: cout << "Volviendo..." << endl; break;
             default: cout << "Opcion invalida." << endl;
         }
