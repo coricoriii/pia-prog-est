@@ -24,9 +24,9 @@ typedef struct {
 } Boxeador;
 
 typedef struct {
-    int boxeador1;
-    int boxeador2;
-    char resultado[20]; 
+    char ganador[50];
+    char perdedor[50];
+    char resultado[20];
 } Resultado;
 
 // Agregar un nuevo boxeador a la base de datos

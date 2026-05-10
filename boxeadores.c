@@ -226,7 +226,7 @@ void registrar_resultado() {
                 fwrite(&b_perdedor, sizeof(Boxeador), 1, f);
             }
             fclose(f);
-            printf("Resultado registrado: '%s' ganó a '%s'.\n\n", ganador, perdedor);
+            printf("Resultado registrado: '%s' gano a '%s'.\n\n", ganador, perdedor);
         } else {
             printf("Error al abrir el archivo.\n");
         }
@@ -235,11 +235,16 @@ void registrar_resultado() {
     }
     // resultados.dat guardar resultados
     Resultado r;
-    r.boxeador1 = pos_ganador;
-    r.boxeador2 = pos_perdedor;
+    // Guardar nombres como cadenas
+    strncpy(r.ganador, ganador, sizeof(r.ganador) - 1);
+    r.ganador[sizeof(r.ganador) - 1] = '\0';
+    strncpy(r.perdedor, perdedor, sizeof(r.perdedor) - 1);
+    r.perdedor[sizeof(r.perdedor) - 1] = '\0';
+    // Resultado (KO, TKO, etc.)
     strncpy(r.resultado, resultado, sizeof(r.resultado) - 1);
-    r.resultado[sizeof(r.resultado) - 1] = '\0';  // Asegurar terminación nula
-    FILE *f_resultados = fopen("resultados.dat", "a");
+    r.resultado[sizeof(r.resultado) - 1] = '\0';
+
+    FILE *f_resultados = fopen("resultados.dat", "ab");
     if (f_resultados != NULL) {
         fwrite(&r, sizeof(Resultado), 1, f_resultados);
         fclose(f_resultados);

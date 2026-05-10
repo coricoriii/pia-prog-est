@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "boxeadores.h"
+#include "emparejamientos.h"
 
 using namespace std;
 
@@ -51,23 +52,27 @@ void menuEmparejamiento() {
     do {
         cout << "\n========== EMPAREJAMIENTO ==========" << endl;
         cout << "1. Buscar mejor rival para un boxeador" << endl;
-        cout << "2. Mostrar matriz de compatibilidad"    << endl;
-        cout << "3. Guardar emparejamiento sugerido"     << endl;
-        cout << "4. Ver emparejamientos guardados"       << endl;
-        cout << "5. Volver al menu principal"            << endl;
+        cout << "2. Ver emparejamientos sugeridos"     << endl;
+        cout << "3. Mostrar matriz de compatibilidad"       << endl;
+        cout << "4. Volver al menu principal"            << endl;
         cout << "Opcion: ";
         cin  >> op;
         cin.ignore(); // Limpiar el buffer
 
         switch (op) {
-            case 1: break;
-            case 2: break;
-            case 3: break;
-            case 4: break;
-            case 5: cout << "Volviendo..." << endl; break;
+            case 1: 
+                mejor_rival();
+                break;
+            case 2: 
+                ver_emparejamientos();
+                break;
+            case 3: 
+                mostrar_matriz();
+                break;
+            case 4: cout << "Volviendo..." << endl; break;
             default: cout << "Opcion invalida." << endl;
         }
-    } while (op != 5);
+    } while (op != 4);
 }
 
 //menu de las categorias etc etc
