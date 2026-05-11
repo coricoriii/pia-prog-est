@@ -25,11 +25,11 @@ long boxeador_existe(const char* nombre, Boxeador* encontrado) {
         }
         fclose(f);
     }
-    return -1; // Boxeador no existe
+    return -1; 
 }
 
 void modificar_boxeador() {
-    // Ingresar el nombre del boxeador a modificar
+    
     char nombre[50];
     printf("Ingrese el nombre del boxeador a modificar: ");
     fgets(nombre, sizeof(nombre), stdin);
