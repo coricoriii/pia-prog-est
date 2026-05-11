@@ -1,5 +1,0 @@
-Rank   Nombre               Peso     Categoria    Vic   Der     Ind.Vic%  
---------------------------------------------------------------
-1      ana                  40.00    Mosca        3     2       60.00     
-2      corina               60.00    Ligero       3     4       42.86     
-3      luis                 70.00    Medio        2     5       28.57     
