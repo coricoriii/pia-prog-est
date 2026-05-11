@@ -8,7 +8,6 @@
 
 using namespace std;
 
-//hola cori aca es donde implente el que no se joda a la hora de recibir letra y solo limpie el bufer
 static int leer_opcion() {
     int op;
     if (!(cin >> op)) {
@@ -20,7 +19,6 @@ static int leer_opcion() {
     return op;
 }
 
-//just in case alguien meta letra en vez de numero  no se joda 
 static char leer_opcion_char() {
     char op;
     if (!(cin >> op)) {
@@ -32,7 +30,6 @@ static char leer_opcion_char() {
     return op;
 }
 
-// solo reemplazo de los scanf por estas funciones para evitar problemas de buffer y validacion el resto es igual al original
 void menuGestion() {
     int op;
     do {
@@ -110,18 +107,17 @@ void menuGraficas() {
         cout << "2. Grafica de victorias por boxeador"   << endl;
         cout << "3. Volver al menu principal"            << endl;
         cout << "Opcion: ";
-        op = leer_opcion(); /* MODIFICADO: era cin >> op; cin.ignore() */
+        op = leer_opcion();
 
         switch (op) {
             case 1: grafica_boxeadores_por_categoria(); break;
             case 2: grafica_victorias_por_boxeador();   break;
             case 3: cout << "Volviendo..." << endl; break;
-            default: cout << "Opcion invalida. Ingrese un numero del 1 al 3." << endl; /* MODIFICADO: mensaje */
+            default: cout << "Opcion invalida. Ingrese un numero del 1 al 3." << endl;
         }
     } while (op != 3);
 }
 
-//hola tralalerita (ya duermanme de un vergazo)
 int main() {
     int op;
     cout << "Bienvenido al Sistema de Emparejamiento de Boxeadores" << endl;

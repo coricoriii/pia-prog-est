@@ -1,0 +1,6 @@
+Rank   Nombre               Peso     Categoria    Vic   Der     Ind.Vic%  
+--------------------------------------------------------------
+1      Toro                 90.00    Pesado       15    2       88.24     
+2      Nube                 60.00    Ligero       12    4       75.00     
+3      Pico                 55.00    Pluma        6     2       75.00     
+4      Lobo                 66.00    Welter       9     4       69.23     
