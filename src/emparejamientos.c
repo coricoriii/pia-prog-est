@@ -1,12 +1,11 @@
 #include "boxeadores.h"
 #include "emparejamientos.h"
-#include "validaciones.h"  //por lo de la funciond id
+#include "validaciones.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
-/* Sin cambios */
 static float calcular_compatibilidad(Boxeador *b1, Boxeador *b2) {
     float difPeso   = fabsf(b1->peso - b2->peso);
     float difIndice = fabsf(b1->record.indiceVictorias - b2->record.indiceVictorias);
@@ -31,7 +30,6 @@ static int siguiente_id_emparejamiento() {
     return max + 1;
 }
 
-// si alcancé a hacer el antiduplicados 
 static int emparejamiento_duplicado(int id1, int id2) {
     FILE *f = fopen("emparejamientos.dat", "rb");
     if (f == NULL) return 0;
@@ -47,7 +45,6 @@ static int emparejamiento_duplicado(int id1, int id2) {
     return 0;
 }
 
-// este solo guarda los emparejamientos para no tener duplicados, lo demas es igual al original
 void guardar_emparejamiento(int id1, int id2, float comp) {
     if (emparejamiento_duplicado(id1, id2)) {
         char op[4];
@@ -76,7 +73,6 @@ void guardar_emparejamiento(int id1, int id2, float comp) {
     }
 }
 
-// los scanf de ID los reemplaze por la funcion que te dije que haria
 void mejor_rival() {
     printf("Ingrese el ID del boxeador: ");
     int id = pedir_id("ID"); 
@@ -123,7 +119,6 @@ void mejor_rival() {
     printf("Mejor rival sugerido : %s (ID %d)\n", lista[mejor].nombre, lista[mejor].id);
     printf("Compatibilidad       : %.2f%%\n\n", mejorComp);
 
-    // vi un tutorial indio y parece que fgets evita problemas del buffer si lo quieres cambiar a scan otra vez no hay pedo
     char op[4];
     printf("Desea guardar este emparejamiento? (s/n): ");
     fgets(op, sizeof(op), stdin);
@@ -178,7 +173,6 @@ void mostrar_matriz() {
     printf("\n");
 }
 
-//pibble
 void ver_emparejamientos() {
     FILE *f = fopen("emparejamientos.dat", "rb");
     if (f == NULL) {
@@ -189,7 +183,7 @@ void ver_emparejamientos() {
     Emparejamiento e;
     int cont = 0;
     printf("\n%-6s %-20s %-20s %-15s\n", "ID", "Boxeador 1", "Boxeador 2", "Compatibilidad");
-    printf("------------------------------------------------------------------\n"); //mas estetik
+    printf("------------------------------------------------------------------\n");
 
     while (fread(&e, sizeof(Emparejamiento), 1, f) == 1) {
         Boxeador b1, b2;

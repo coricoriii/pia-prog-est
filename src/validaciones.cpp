@@ -6,7 +6,7 @@
 
 using namespace std; 
 
-static void limpiar_buffer() { // este es el de limpiar el bufer al parecer estaba en corto
+static void limpiar_buffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
@@ -30,7 +30,6 @@ int validar_entero_positivo(int n) {
     return (n >= 0) ? 1 : 0;
 }
 
-//aca le modifique cori para que solo se pueda poner KO,TKO y desicion
 int validar_resultado(const char *res) {
     if (!res) return 0;
     regex patron("^(KO|TKO|Decision)$");
@@ -57,7 +56,7 @@ void pedir_nombre(char *buf, int tam) {
 }
 
 
-float pedir_peso() {// solo le añadi el del bufer
+float pedir_peso() {
     float peso;
     int valido;
     do {
@@ -112,7 +111,6 @@ void pedir_resultado(char *buf, int tam) {
     } while (!valido);
 }
 
-    // solo hice que pueda poner numeros enteros mayores a 0 para el id
 int pedir_id(const char *msg) {
     int id;
     int valido;

@@ -87,7 +87,6 @@ void agregar_boxeador() {
 
     b.id = siguiente_id();
 
-    // hice un loop para evitar duplicados
     do {
         printf("Ingrese nombre: ");
         pedir_nombre(b.nombre, sizeof(b.nombre));
@@ -126,7 +125,6 @@ void agregar_boxeador() {
     }
 }
 
-//lo de id
 void buscar_boxeador() {
     printf("Ingrese el ID del boxeador: ");
     int id = pedir_id("ID"); 
@@ -136,7 +134,7 @@ void buscar_boxeador() {
     if (pos >= 0) {
         printf("\n%-5s %-20s %-8s %-12s %-5s %-7s %-10s\n",
                "ID", "Nombre", "Peso", "Categoria", "Vic", "Der", "Ind.Vic%");
-        printf("------------------------------------------------------------------\n"); // no se si dejarla esta madre
+        printf("------------------------------------------------------------------\n");
         printf("%-5d %-20s %-8.2f %-12s %-5d %-7d %-10.2f\n",
                b.id, b.nombre, b.peso, b.categoria,
                b.record.victorias, b.record.derrotas, b.record.indiceVictorias);
@@ -145,10 +143,9 @@ void buscar_boxeador() {
     }
 }
  
-// solo hice que usara la funcion de ID
 void modificar_boxeador() {
     printf("Ingrese el ID del boxeador a modificar: ");
-    int id = pedir_id("ID"); // te ahorre el scanf y el getchar enn pocas palabras
+    int id = pedir_id("ID");
  
     Boxeador b;
     long pos = boxeador_existe_id(id, &b);
@@ -163,7 +160,6 @@ void modificar_boxeador() {
         return;
     }
  
-   // solo busca si el nombre esta duplicado
     char tmp[50];
     do {
         printf("Nuevo nombre (%s): ", b.nombre);
@@ -202,7 +198,6 @@ void modificar_boxeador() {
     printf("Boxeador modificado correctamente.\n\n");
 }
  
-//  lo del id
 void eliminar_boxeador() {
     printf("Ingrese el ID del boxeador a eliminar: ");
     int id = pedir_id("ID"); 
@@ -214,7 +209,6 @@ void eliminar_boxeador() {
         return;
     }
  
-    // solo una confirmacion que pues no cuesta nada 
     char op[4];
     printf("Seguro que desea eliminar a '%s'? (s/n): ", b.nombre);
     fgets(op, sizeof(op), stdin);
@@ -235,7 +229,6 @@ void eliminar_boxeador() {
     }
 }
  
-// los scanf de ID los reemplace por la funcion que te dije que haria
 void registrar_resultado() {
     printf("Ingrese ID del ganador: ");
     int id_ganador = pedir_id("ID ganador");   
@@ -257,7 +250,6 @@ void registrar_resultado() {
         return;
     }
  
-   //solo una advertencia just in case bby asi si falla el codigo parece que esta built in esta madre ;D
     if (strcmp(bg.categoria, bp.categoria) != 0) {
         printf("Advertencia: los boxeadores son de distinta categoria (%s vs %s).\n",
                bg.categoria, bp.categoria);
