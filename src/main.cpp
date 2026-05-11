@@ -8,6 +8,31 @@
 
 using namespace std;
 
+//hola cori aca es donde implente el que no se joda a la hora de recibir letra y solo limpie el bufer
+static int leer_opcion() {
+    int op;
+    if (!(cin >> op)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        return -1;
+    }
+    cin.ignore();
+    return op;
+}
+
+//just in case alguien meta letra en vez de numero  no se joda 
+static char leer_opcion_char() {
+    char op;
+    if (!(cin >> op)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        return '\0';
+    }
+    cin.ignore();
+    return op;
+}
+
+// solo reemplazo de los scanf por estas funciones para evitar problemas de buffer y validacion el resto es igual al original
 void menuGestion() {
     int op;
     do {
@@ -20,18 +45,16 @@ void menuGestion() {
         cout << "6. Listar boxeadores activos"    << endl;
         cout << "7. Volver al menu principal"     << endl;
         cout << "Opcion: ";
-        cin  >> op;
-        cin.ignore();
-
+        op = leer_opcion(); 
         switch (op) {
-            case 1: agregar_boxeador();        break;
-            case 2: buscar_boxeador();         break;
-            case 3: modificar_boxeador();      break;
-            case 4: eliminar_boxeador();       break;
-            case 5: registrar_resultado();     break;
+            case 1: agregar_boxeador();          break;
+            case 2: buscar_boxeador();           break;
+            case 3: modificar_boxeador();        break;
+            case 4: eliminar_boxeador();         break;
+            case 5: registrar_resultado();       break;
             case 6: listar_boxeadores_activos(); break;
             case 7: cout << "Volviendo..." << endl; break;
-            default: cout << "Opcion invalida." << endl;
+            default: cout << "Opcion invalida. Ingrese un numero del 1 al 7." << endl; 
         }
     } while (op != 7);
 }
@@ -45,18 +68,18 @@ void menuEmparejamiento() {
         cout << "3. Ver emparejamientos guardados"       << endl;
         cout << "4. Volver al menu principal"            << endl;
         cout << "Opcion: ";
-        cin  >> op;
-        cin.ignore();
+        op = leer_opcion(); 
 
         switch (op) {
-            case 1: mejor_rival();          break;
-            case 2: mostrar_matriz();       break;
-            case 3: ver_emparejamientos();  break;
+            case 1: mejor_rival();         break;
+            case 2: mostrar_matriz();      break;
+            case 3: ver_emparejamientos(); break;
             case 4: cout << "Volviendo..." << endl; break;
-            default: cout << "Opcion invalida." << endl;
+            default: cout << "Opcion invalida. Ingrese un numero del 1 al 4." << endl;
         }
     } while (op != 4);
 }
+
 
 void menuReportes() {
     char op;
@@ -67,9 +90,7 @@ void menuReportes() {
         cout << "C. Mostrar estadisticas generales"     << endl;
         cout << "D. Volver al menu principal"           << endl;
         cout << "Opcion: ";
-        cin  >> op;
-        cin.ignore();
-
+        op = leer_opcion_char(); 
         switch (op) {
             case 'A': case 'a': reporte_boxeadores();      break;
             case 'B': case 'b': reporte_emparejamientos(); break;
@@ -80,6 +101,7 @@ void menuReportes() {
     } while (op != 'D' && op != 'd');
 }
 
+
 void menuGraficas() {
     int op;
     do {
@@ -88,18 +110,18 @@ void menuGraficas() {
         cout << "2. Grafica de victorias por boxeador"   << endl;
         cout << "3. Volver al menu principal"            << endl;
         cout << "Opcion: ";
-        cin  >> op;
-        cin.ignore();
+        op = leer_opcion(); /* MODIFICADO: era cin >> op; cin.ignore() */
 
         switch (op) {
             case 1: grafica_boxeadores_por_categoria(); break;
             case 2: grafica_victorias_por_boxeador();   break;
             case 3: cout << "Volviendo..." << endl; break;
-            default: cout << "Opcion invalida." << endl;
+            default: cout << "Opcion invalida. Ingrese un numero del 1 al 3." << endl; /* MODIFICADO: mensaje */
         }
     } while (op != 3);
 }
 
+//hola tralalerita (ya duermanme de un vergazo)
 int main() {
     int op;
     cout << "Bienvenido al Sistema de Emparejamiento de Boxeadores" << endl;
@@ -112,8 +134,7 @@ int main() {
         cout << "4. Graficas"                << endl;
         cout << "5. Salir"                   << endl;
         cout << "Opcion: ";
-        cin  >> op;
-        cin.ignore();
+        op = leer_opcion(); 
 
         switch (op) {
             case 1: menuGestion();        break;
@@ -121,7 +142,7 @@ int main() {
             case 3: menuReportes();       break;
             case 4: menuGraficas();       break;
             case 5: cout << "Hasta luego!" << endl; break;
-            default: cout << "Opcion invalida." << endl;
+            default: cout << "Opcion invalida. Ingrese un numero del 1 al 5." << endl; 
         }
     } while (op != 5);
 
