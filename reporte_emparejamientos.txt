@@ -1,3 +1,0 @@
-ID     Boxeador 1           Boxeador 2           Compatibilidad 
-------------------------------------------------------------
-1      Pico                 Nube                 90.00%
